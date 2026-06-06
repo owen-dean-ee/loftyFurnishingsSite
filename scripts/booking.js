@@ -1,17 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Parse URL parameters to confirm selected product
   const params = new URLSearchParams(window.location.search);
-  const selectedProductKey = params.get('product') || 'natural';
+  const selectedProductKey = params.get('product') || 'espresso';
   
   const products = {
-    espresso: { name: 'Espresso Cedar Loft', price: 200 },
-    chestnut: { name: 'English Chestnut Cedar Loft', price: 200 },
-    white: { name: 'Clean White Cedar Loft', price: 200 },
-    natural: { name: 'Natural Cedar Loft', price: 150 },
-    bundle: { name: 'Roommate Loft Bundle', price: 350 }
+    espresso: { name: 'Espresso Cedar Loft', price: 250 },
+    chestnut: { name: 'English Chestnut Cedar Loft', price: 250 },
+    white: { name: 'Clean White Cedar Loft', price: 250 },
+    bundle: { name: 'Roommate Loft Bundle', price: 450 }
   };
 
-  const product = products[selectedProductKey] || products.natural;
+  const product = products[selectedProductKey] || products.espresso;
 
   // Update Summary Side Panel
   document.getElementById('summary-product-name').innerText = product.name;
