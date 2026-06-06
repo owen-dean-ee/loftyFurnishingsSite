@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmed | Lofty Furnishing</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles/main.css">
+  
+  <style>
+    .success-container {
+      max-width: 600px;
+      margin: 4rem auto;
+      background-color: var(--bg-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+    .checkmark-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background-color: hsl(140, 50%, 93%);
+      color: hsl(140, 50%, 40%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.5rem;
+    }
+    .receipt-details {
+      text-align: left;
+      background-color: var(--bg-light);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border: 1px solid var(--border-color);
+    }
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+    .receipt-row:last-child {
+      margin-bottom: 0;
+      border-top: 1px dashed var(--border-color);
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="index.html" class="logo" id="nav-logo">
+        Lofty<span>Furnishing</span>
+      </a>
+      <nav>
+        <ul id="nav-menu">
+          <li><a href="index.html" id="link-home">Home</a></li>
+          <li><a href="shop.html" id="link-shop">Shop Lofts</a></li>
+          <li><a href="about.html" id="link-about">About Us</a></li>
+          <li><a href="faq.html" id="link-faq">FAQ</a></li>
+          <li><a href="shop.html" class="cta-button" id="btn-order-nav">Book Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container">
+    <div class="success-container">
+      <div class="checkmark-circle">✓</div>
+      <h1 style="font-size: 2.25rem; margin-bottom: 0.5rem; color: var(--primary-navy);">Installation Confirmed!</h1>
+      <p style="color: var(--text-muted);">Thank you for booking. Your delivery and installation slot has been secured.</p>
+
+      <div class="receipt-details" id="receipt-box">
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary-navy); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Booking Details</h3>
+        
+        <div class="receipt-row">
+          <span>Product:</span>
+          <span id="receipt-product" style="font-weight: 600;">-</span>
+        </div>
+        <div class="receipt-row">
+          <span>Date:</span>
+          <span id="receipt-date" style="font-weight: 600;">-</span>
+        </div>
+        <div class="receipt-row">
+          <span>Delivery Window:</span>
+          <span id="receipt-time" style="font-weight: 600;">-</span>
+        </div>
+        <div class="receipt-row">
+          <span>Dorm Room:</span>
+          <span id="receipt-room" style="font-weight: 600;">-</span>
+        </div>
+        <div class="receipt-row">
+          <span>Student Name:</span>
+          <span id="receipt-name" style="font-weight: 600;">-</span>
+        </div>
+        <div class="receipt-row">
+          <span>Receipt ID:</span>
+          <span id="receipt-id" style="font-family: monospace; font-size: 0.85rem; color: var(--text-muted);">-</span>
+        </div>
+        <div class="receipt-row">
+          <span>Amount Paid:</span>
+          <span id="receipt-amount">-</span>
+        </div>
+      </div>
+
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem;">
+        A confirmation email has been sent to the address provided. If you need to make changes or reschedule, please reach out to support@loftyfurnishing.com.
+      </p>
+
+      <a href="index.html" class="cta-button" style="width: 100%; justify-content: center;">Return to Homepage</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Lofty Furnishing</h4>
+          <p>Handcrafting premium cedar loft beds and handling complete white-glove setup for Penn State University students. Book your slot today before move-in season runs out!</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html" id="footer-link-home">Home</a></li>
+            <li><a href="shop.html" id="footer-link-shop">Shop Lofts</a></li>
+            <li><a href="about.html" id="footer-link-about">About Us</a></li>
+            <li><a href="faq.html" id="footer-link-faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact & Support</h4>
+          <p>Email: <a href="mailto:support@loftyfurnishing.com" style="color: var(--accent-gold);">support@loftyfurnishing.com</a></p>
+          <p>Location: State College, PA</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Lofty Furnishing. All rights reserved.</p>
+        <p>
+          <a href="terms.html" id="footer-link-terms">Terms &amp; Conditions</a> | 
+          <a href="privacy.html" id="footer-link-privacy">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const orderData = localStorage.getItem('lastOrder');
+      if (orderData) {
+        const order = JSON.parse(orderData);
+        document.getElementById('receipt-product').innerText = order.product;
+        document.getElementById('receipt-date').innerText = order.date;
+        document.getElementById('receipt-time').innerText = order.time;
+        document.getElementById('receipt-room').innerText = `${order.delivery.building}, ${order.delivery.room}`;
+        document.getElementById('receipt-name').innerText = order.customer.name;
+        document.getElementById('receipt-id').innerText = order.transactionId;
+        document.getElementById('receipt-amount').innerText = `$${order.price.toFixed(2)}`;
+      }
+    });
+  </script>
+</body>
+</html>
