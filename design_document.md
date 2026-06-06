@@ -42,7 +42,7 @@ c:\Dev\LoftyWebsite/
 | `success.html` | Payment verification and receipt details display. | Reads mock checkout summary details from the browser's `localStorage` and presents a confirmation card. |
 
 ### B. Informational Pages
-* **`about.html`:** Clean article layout detailing the business history, white-glove setup process, and sustainable cedar craft description.
+* **`about.html`:** Clean article layout detailing the business history, white-glove setup process, sustainable cedar craft description, and a **"Meet the Team"** section featuring vertically stacked bios for the partners (Owen Dean on the left, Keegan Robinson on the right).
 * **`faq.html`:** Two sections: General support questions and the official 7-step move-in/installation walkthrough guide.
 * **`terms.html` & `privacy.html`:** Structured legal texts (updated for 2025/2026 timelines) describing Penn State campus delivery rules and Stripe handling.
 
@@ -63,7 +63,7 @@ All elements use unified tokens defined in `styles/main.css`:
 ### Media Query Breakpoints:
 * **Desktop / Large Screens:** Multi-column flexbox and grid layouts. Product grids render in standard column lists.
 * **Tablet / Small Desktop (`max-width: 992px`):** Product grid forced to a single column (`grid-template-columns: 1fr`) to display beds vertically.
-* **Mobile (`max-width: 768px`):** Stacks header nav menu vertically, resizes hero font sizes, and adapts input forms to single-column blocks.
+* **Mobile / Bio Stacking (`max-width: 768px`):** Stacks header nav menu vertically, resizes hero font sizes, adapts input forms to single-column blocks, and stacks team bio rows vertically (`.bio-row` and `.bio-row.reverse`) with centered alignment.
 
 ---
 
