@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet">
   
   <!-- Stylesheets -->
+  <script src="https://js.stripe.com/v3/"></script>
   <link rel="stylesheet" href="styles/main.css">
   
   <style>
@@ -173,7 +174,8 @@
           
           <button type="button" class="cta-button" id="btn-stripe-checkout" style="width: 100%; justify-content: center; height: 50px; font-size: 1.1rem; background-color: var(--accent-gold); color: var(--text-dark);" disabled>
             Continue to Stripe Payment
-          </button>
+            <input type="text" id="coupon-code" placeholder="Coupon code (optional)" style="margin-top:0.5rem; width:100%; padding:0.5rem;" />
+            <div id="payment-element" style="margin-top:1rem;"></div>
           
           <div id="booking-feedback" style="display: none; text-align: center; margin-top: 1.5rem; font-weight: 600; color: hsl(0, 75%, 50%);"></div>
         </div>

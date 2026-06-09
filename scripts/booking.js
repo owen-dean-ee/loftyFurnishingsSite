@@ -147,8 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 5. Checkout & Payment Redirect
-  checkoutBtn.addEventListener('click', () => {
+  // 5. Checkout & Payment Flow with Stripe
+  const stripe = Stripe('pk_live_51TdFHICxwzy4h9RFCDAWfW4UAi7s6LgkOfcmOSPozrVxqjl4F3zZjBMQ6owHSRTn3bFGlkLg3sJPyAywZusbZSpu00WgQB47Pt');
+  const elements = stripe.elements();
+  const paymentElement = elements.create('payment');
+  paymentElement.mount('#payment-element');
+
+  checkoutBtn.addEventListener('click', async () => {
     // Gather details
     const studentName = document.getElementById('student-name').value.trim();
     const studentEmail = document.getElementById('student-email').value.trim();
@@ -156,45 +161,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const dormHall = document.getElementById('dorm-hall').value.trim();
     const roomNumber = document.getElementById('room-number').value.trim();
     const notes = document.getElementById('order-notes').value.trim();
+    const couponCode = document.getElementById('coupon-code').value.trim().toUpperCase();
 
+    // Compute price with optional 10% coupon
+    let amountCents = Math.round(product.price * 100);
+    if (couponCode === 'LOFTME10') {
+      amountCents = Math.round(amountCents * 0.9);
+    }
+
+    // Disable UI while creating session
     checkoutBtn.disabled = true;
-    checkoutBtn.innerText = 'Processing payment...';
+    checkoutBtn.innerText = 'Creating checkout...';
 
-    // Create order object
-    const orderDetails = {
-      product: product.name,
-      price: product.price,
-      date: selectedDate,
-      time: selectedSlot,
-      customer: {
-        name: studentName,
-        email: studentEmail,
-        phone: studentPhone
-      },
-      delivery: {
-        building: dormHall,
-        room: roomNumber,
-        notes: notes
-      },
-      paymentStatus: 'Paid via Stripe',
-      transactionId: 'ch_' + Math.random().toString(36).substr(2, 9).toUpperCase()
-    };
+    try {
+      const response = await fetch('/stripe/create-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount_cents: amountCents,
+          product_name: product.name,
+          success_url: `${location.origin}/success.html`,
+          cancel_url: location.href
+        })
+      });
+      const data = await response.json();
+      if (!data.sessionId) throw new Error('Invalid session response');
 
-    // Save booking to Firestore
-    saveBooking(orderDetails)
-      .then(() => {
-        // Store in localStorage for mock success page
-        localStorage.setItem('lastOrder', JSON.stringify(orderDetails));
-        window.location.href = 'success.html';
-      })
-      .catch((err) => {
-        console.error('Error saving booking:', err);
-        if (bookingFeedback) {
-          bookingFeedback.innerText = 'There was an error processing your booking. Please try again.';
-          bookingFeedback.style.display = 'block';
-        }
+      // Redirect to Stripe Checkout
+      const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+      if (error) {
+        console.error(error);
+        bookingFeedback.innerText = error.message || 'Payment error';
+        bookingFeedback.style.display = 'block';
         checkoutBtn.disabled = false;
         checkoutBtn.innerText = 'Continue to Stripe Payment';
-      });
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      bookingFeedback.innerText = 'Failed to start payment. Please try again.';
+      bookingFeedback.style.display = 'block';
+      checkoutBtn.disabled = false;
+      checkoutBtn.innerText = 'Continue to Stripe Payment';
+    }
   });
+
 });
