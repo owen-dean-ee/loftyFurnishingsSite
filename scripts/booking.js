@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Parse URL parameters to confirm selected product
+  import { saveBooking } from "./firebase.js";
+// 1. Parse URL parameters to confirm selected product
   const params = new URLSearchParams(window.location.search);
   const selectedProductKey = params.get('product') || 'espresso';
   
@@ -157,35 +158,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const notes = document.getElementById('order-notes').value.trim();
 
     checkoutBtn.disabled = true;
-    checkoutBtn.innerText = 'Redirecting to Stripe...';
+    checkoutBtn.innerText = 'Processing payment...';
 
-    // Simulate Stripe payment redirect & Firestore writing
-    setTimeout(() => {
-      // Create a mock order object to display or save
-      const orderDetails = {
-        product: product.name,
-        price: product.price,
-        date: selectedDate,
-        time: selectedSlot,
-        customer: {
-          name: studentName,
-          email: studentEmail,
-          phone: studentPhone
-        },
-        delivery: {
-          building: dormHall,
-          room: roomNumber,
-          notes: notes
-        },
-        paymentStatus: 'Paid via Stripe',
-        transactionId: 'ch_' + Math.random().toString(36).substr(2, 9).toUpperCase()
-      };
+    // Create order object
+    const orderDetails = {
+      product: product.name,
+      price: product.price,
+      date: selectedDate,
+      time: selectedSlot,
+      customer: {
+        name: studentName,
+        email: studentEmail,
+        phone: studentPhone
+      },
+      delivery: {
+        building: dormHall,
+        room: roomNumber,
+        notes: notes
+      },
+      paymentStatus: 'Paid via Stripe',
+      transactionId: 'ch_' + Math.random().toString(36).substr(2, 9).toUpperCase()
+    };
 
-      // Store in localStorage temporarily for mock success page display
-      localStorage.setItem('lastOrder', JSON.stringify(orderDetails));
-
-      // Redirect to a local mock success page
-      window.location.href = 'success.html';
-    }, 1500);
+    // Save booking to Firestore
+    saveBooking(orderDetails)
+      .then(() => {
+        // Store in localStorage for mock success page
+        localStorage.setItem('lastOrder', JSON.stringify(orderDetails));
+        window.location.href = 'success.html';
+      })
+      .catch((err) => {
+        console.error('Error saving booking:', err);
+        if (bookingFeedback) {
+          bookingFeedback.innerText = 'There was an error processing your booking. Please try again.';
+          bookingFeedback.style.display = 'block';
+        }
+        checkoutBtn.disabled = false;
+        checkoutBtn.innerText = 'Continue to Stripe Payment';
+      });
   });
 });

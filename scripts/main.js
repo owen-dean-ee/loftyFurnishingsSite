@@ -30,14 +30,22 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = true;
       submitBtn.innerText = 'Submitting...';
 
-      // Simulate API call to Firebase (which we will build in Phase 2)
-      setTimeout(() => {
-        console.log('Form Submitted:', { name, email, phone, earlyArrival });
-        showFeedback('Thank you! Your application has been successfully submitted.', 'green');
-        hiringForm.reset();
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Submit Application';
-      }, 1000);
+      import { saveApplication } from "./firebase.js";
+      // Save application to Firestore
+      saveApplication({ name, email, phone, earlyArrival })
+        .then(() => {
+          console.log('Application saved to Firestore');
+          showFeedback('Thank you! Your application has been successfully submitted.', 'green');
+          hiringForm.reset();
+        })
+        .catch((err) => {
+          console.error('Error saving application:', err);
+          showFeedback('There was an error submitting your application. Please try again.', 'red');
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Submit Application';
+        });
     });
   }
 
