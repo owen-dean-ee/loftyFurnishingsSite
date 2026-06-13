@@ -1,0 +1,16 @@
+name = "loftysite"
+account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
+workers_dev = true
+compatibility_date = "2024-06-01"
+
+[site]
+bucket = "./public"
+entry-point = "./src"
+# Build configuration (if using npm scripts)
+# [build]
+# command = "npm install && npm run build"
+# cwd = "./"
+
+# Define environment variables (set via `wrangler secret put` later)
+[[vars]]
+# Stripe keys will be stored as secrets via wrangler commands.

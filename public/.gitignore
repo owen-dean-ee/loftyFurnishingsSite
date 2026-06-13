@@ -1,0 +1,13 @@
+# WordPress backups
+loftyfurnishing.com/
+
+# Office documents and temp files
+website_context.docx
+website_context_copy.docx
+~$*.docx
+
+# OS metadata / IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
